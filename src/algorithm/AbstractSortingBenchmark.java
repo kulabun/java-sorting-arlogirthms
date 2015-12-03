@@ -1,32 +1,22 @@
 package algorithm;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
  * Created by kulabun on 01.12.15.
  */
 public class AbstractSortingBenchmark {
-    public static final int ARRAY_SIZE = 1 << 16;
-    public static final int ITERATIONS = 3;
     private Random rand = new Random();
-    private int[][] arrays;
+    private BenchData benchData = new BenchData();
 
     public AbstractSortingBenchmark() {
-        arrays = createTestData();
-    }
-
-    private int[][] createTestData() {
-        int[][] arrays = new int[ITERATIONS][];
-        for (int i = 0; i < ITERATIONS; i++) {
-            arrays[i] = createArray(ARRAY_SIZE);
-        }
-        return arrays;
     }
 
     private int[] createArray(int size) {
         int[] array = new int[size];
         for (int i = 0; i < size; i++) {
-            array[i] = rand.nextInt();
+            array[i] = rand.nextInt(10000);
         }
         return array;
     }
@@ -46,9 +36,42 @@ public class AbstractSortingBenchmark {
 
     public long benchSorting(SortingAlgorithm algorithm) {
         long sum = 0;
+        int[][] arrays = benchData.get();
         for (int[] array : arrays) {
             sum += benchSorting(algorithm, array);
         }
         return sum / arrays.length;
+    }
+
+    private class BenchData {
+        public static final int ARRAY_SIZE = 1 << 16;
+        public static final int ITERATIONS = 3;
+
+        private int[][] arrays;
+
+        public BenchData() {
+            arrays = createTestData();
+        }
+
+        private int[][] createTestData() {
+            int[][] arrays = new int[ITERATIONS][];
+            for (int i = 0; i < ITERATIONS; i++) {
+                arrays[i] = createArray(ARRAY_SIZE);
+            }
+            return arrays;
+        }
+
+        private int[][] get() {
+            return copy(arrays);
+        }
+
+        private int[][] copy(int[][] arrays) {
+            int[][] result = new int[arrays.length][];
+            for (int i = 0; i < result.length; i++) {
+                int[] arr = arrays[i];
+                result[i] = Arrays.copyOf(arr, arr.length);
+            }
+            return result;
+        }
     }
 }

@@ -3,7 +3,7 @@ package algorithm;
 /**
  * Created by kulabun on 01.12.15.
  */
-public class QuickSort implements SortingAlgorithm {
+public class QuickSort extends AbstractSortingAlgorithm {
     @Override
     public void sort(int[] data) {
         sort(data, 0, data.length - 1);
@@ -54,11 +54,5 @@ public class QuickSort implements SortingAlgorithm {
         if (first != midPos + 1) {
             sort(data, midPos + 1, last);
         }
-    }
-
-    private void swap(int[] data, int i, int j) {
-        int tmp = data[i];
-        data[i] = data[j];
-        data[j] = tmp;
     }
 }
