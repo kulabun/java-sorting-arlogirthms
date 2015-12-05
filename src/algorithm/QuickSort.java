@@ -3,15 +3,15 @@ package algorithm;
 /**
  * Created by kulabun on 01.12.15.
  */
-public class QuickSort extends AbstractSortingAlgorithm {
+public class QuickSort implements InPlaceSortingAlgorithm {
     @Override
-    public void sort(int[] data) {
-        sort(data, 0, data.length - 1);
+    public int[] sort(int[] data) {
+        return sort(data, 0, data.length - 1);
     }
 
-    public void sort(int[] data, int first, int last) {
+    public int[] sort(int[] data, int first, int last) {
         if (last - first < 1) {
-            return;
+            return data;
         }
 
         // set midPos to middle between first and last
@@ -28,7 +28,7 @@ public class QuickSort extends AbstractSortingAlgorithm {
             while (mid < data[right]) right--;
 
             if (left < right) {
-                swap(data, left, right);
+                ArrayUtils.swap(data, left, right);
                 // if one of swapped element index is same to midPos
                 // we have to update midPos with swapped element index;
                 if (left == midPos) {
@@ -54,5 +54,6 @@ public class QuickSort extends AbstractSortingAlgorithm {
         if (first != midPos + 1) {
             sort(data, midPos + 1, last);
         }
+        return data;
     }
 }

@@ -7,8 +7,10 @@ public class SortingBenchmark extends AbstractSortingBenchmark {
     public static void main(String[] args) {
         SortingBenchmark bench = new SortingBenchmark();
         SortingAlgorithm[] sortingAlgorithms = new SortingAlgorithm[]{
-                new QuickSort(), new MergeSort(),
-                new BubbleSort()
+                new QuickSort(),
+                new InPlaceMergeSort(),
+                new BubbleSort(),
+                new MergeSort(),
         };
         for (SortingAlgorithm sortingAlgorithm : sortingAlgorithms) {
             long avgRunTime = bench.benchSorting(sortingAlgorithm);

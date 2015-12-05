@@ -3,10 +3,10 @@ package algorithm;
 /**
  * Created by kulabun on 03.12.15.
  */
-public class BubbleSort extends AbstractSortingAlgorithm {
+public class BubbleSort implements InPlaceSortingAlgorithm {
 
     @Override
-    public void sort(int[] data) {
+    public int[] sort(int[] data) {
         for (int i = 0; i < data.length; i++) {
             // search for local min index and make swap only once per round
             int minPos = i;
@@ -15,7 +15,8 @@ public class BubbleSort extends AbstractSortingAlgorithm {
                     minPos = j;
                 }
             }
-            swap(data, minPos, i);
+            ArrayUtils.swap(data, minPos, i);
         }
+        return data;
     }
 }

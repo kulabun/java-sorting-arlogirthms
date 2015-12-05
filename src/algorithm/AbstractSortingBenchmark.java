@@ -23,15 +23,22 @@ public class AbstractSortingBenchmark {
 
     public long benchSorting(SortingAlgorithm algorithm, int[] data) {
         long start = System.currentTimeMillis();
-        algorithm.sort(data);
+        int[] result = sort(algorithm, data);
         long duration = System.currentTimeMillis() - start;
 
-        for (int i = 1; i < data.length; i++) {
-            if(data[i-1] > data[i]) {
+        if (data.length != result.length) {
+            throw new BadSortingException();
+        }
+        for (int i = 1; i < result.length; i++) {
+            if (result[i - 1] > result[i]) {
                 throw new BadSortingException();
             }
         }
         return duration;
+    }
+
+    private int[] sort(SortingAlgorithm algorithm, int[] data) {
+        return algorithm.sort(data);
     }
 
     public long benchSorting(SortingAlgorithm algorithm) {
