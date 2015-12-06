@@ -11,6 +11,7 @@ public class SortingBenchmark extends AbstractSortingBenchmark {
                 new InPlaceMergeSort(),
                 new BubbleSort(),
                 new MergeSort(),
+                new HeapSort()
         };
         for (SortingAlgorithm sortingAlgorithm : sortingAlgorithms) {
             long avgRunTime = bench.benchSorting(sortingAlgorithm);
